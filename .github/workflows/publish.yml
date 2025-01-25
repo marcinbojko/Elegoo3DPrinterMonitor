@@ -22,15 +22,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-    # Platform specific install
-      - if: matrix.os == 'ubuntu-latest'
-        name: Linux Install
-        run: |
-          npm install --ignore-scripts
-          npm install electron-builder app-builder-lib --save-dev
+      - if: matrix.os == 'macos-latest'
+        name: Install macOS dependencies
+        run: npm install dmg-license
 
-      - if: matrix.os != 'ubuntu-latest'
-        name: Other OS Install
+      - name: Install dependencies
         run: npm install
 
       - name: Build & Publish
