@@ -22,12 +22,17 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-      - name: Install dependencies
+    # Platform specific install
+      - if: matrix.os == 'ubuntu-latest'
+        name: Linux Install
         run: |
-          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
-            npm install --no-save dmg-builder@latest --platform=linux
-          fi
-          npm install
+          npm install --ignore-scripts
+          npm install electron-builder app-builder-lib --save-dev
+
+      - if: matrix.os != 'ubuntu-latest'
+        name: Other OS Install
+        run: npm install
+
       - name: Build & Publish
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
