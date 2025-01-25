@@ -1,35 +1,36 @@
 name: Publish
 
 on:
-  push:
-    branches:
-      - main
+ push:
+   branches: [main, develop]
 
 jobs:
-  publish:
-    runs-on: ${{ matrix.os }}
+ publish:
+   strategy:
+     matrix:
+       include:
+         - os: ubuntu-latest
+           args: --linux
+         - os: windows-latest
+           args: --win
+         - os: macos-latest
+           args: --mac
 
-    strategy:
-      matrix:
-        os: [macos-latest]
+   runs-on: ${{ matrix.os }}
 
-    steps:
-      - name: Checkout git repo
-        uses: actions/checkout@v1
+   steps:
+     - uses: actions/checkout@v2
 
-      - name: Install Node and NPM
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+     - uses: actions/setup-node@v3
+       with:
+         node-version: 20
 
-      - name: Install dependencies
-        run: |
-          npm install
+     - run: npm install
 
-      - name: Publish releases
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: |
-          npm run postinstall
-          npm run build
-          npm exec electron-builder -- --publish always --win --linux
+     - name: Build & Publish
+       env:
+         GH_TOKEN: ${{ secrets.GH_TOKEN }}
+       run: |
+         npm run postinstall
+         npm run build
+         npm exec electron-builder -- --publish always ${{ matrix.args }}

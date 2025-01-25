@@ -2,10 +2,10 @@
  * @NOTE: Prepend a `~` to css file paths that are in your node_modules
  *        See https://github.com/webpack-contrib/sass-loader#imports
  */
-body {
+ body {
   position: relative;
   color: #eee;
-
+  font-size: 18px; /* Increased from 16px */
   background: #111;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif,
@@ -19,7 +19,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.6em;
+  gap: 0.8em;
 }
 
 /* 3D Printer Layout */
@@ -36,40 +36,42 @@ body {
     rgba(66, 67, 99, 1) 30%,
     rgba(88, 76, 86, 1) 100%
   );
-  padding: 30px;
+  padding: 35px;
   border-radius: 10px;
   display: flex;
   flex-grow: 1;
-  height: 300px;
-  min-width: 600px;
-  max-width: 600px;
+  height: 380px; /* Increased from 350px */
+  min-width: 700px; /* Increased from 650px */
+  max-width: 700px;
 }
 
 .printer-header {
-  font-size: 1.5em;
-  margin-bottom: 0.5em;
+  font-size: 2em; /* Increased from 1.8em */
+  margin-bottom: 0.6em;
 }
 
 .margin-top-1 {
-  margin-top: 0.5em;
+  margin-top: 0.6em;
 }
 
 .margin-top-2 {
-  margin-top: 2em;
+  margin-top: 2.2em;
 }
 
 .printer-status {
   flex-grow: 1;
-  padding: 30px;
+  padding: 35px;
+  font-size: 1.2em; /* Increased from 1.1em */
 }
 
 .subtle {
-  font-size: 0.8em;
+  font-size: 1em; /* Increased from 0.9em */
   color: #aaa;
 }
 
 .label {
   color: #aaa;
+  font-size: 1.2em; /* Increased from 1.1em */
 }
 
 .printer-icon,
@@ -79,30 +81,32 @@ body {
 
 .print-status {
   flex-grow: 1;
-  padding: 30px;
+  padding: 35px;
   align-self: center;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  font-size: 1.2em; /* Increased from 1.1em */
 }
 
 .current-file {
-  font-size: 0.75em;
-  max-width: 190px;
+  font-size: 0.95em; /* Increased from 0.85em */
+  max-width: 230px; /* Increased from 210px */
   overflow: hidden;
   text-align: center;
   white-space: nowrap;
   text-overflow: ellipsis;
-  margin: 20px auto 20px auto;
+  margin: 25px auto 25px auto;
 }
 
 /* Badges */
 .badge {
   display: inline-block;
-  padding: 0.2em 0.8em 0.2em 0.8em;
+  padding: 0.3em 1em;
   border-radius: 30px;
   color: #64c25c;
+  font-size: 1.2em; /* Increased from 1.1em */
 }
 
 .badge-idle {
@@ -122,20 +126,20 @@ body {
 
 /* Blinky Animation */
 .blinky-container {
-  height: 10px;
-  width: 10px;
-  margin-right: 8px;
+  height: 12px;
+  width: 12px;
+  margin-right: 10px;
 }
 .blinky {
   opacity: 0;
   margin: auto;
   position: relative;
-  height: 10px;
-  width: 10px;
+  height: 12px;
+  width: 12px;
   top: 50%;
   transform: translateY(-50%);
   background-color: #07c;
-  border-radius: 10px;
+  border-radius: 12px;
   animation: blink 1s infinite alternate-reverse ease-in-out;
 }
 @keyframes blink {
@@ -148,8 +152,8 @@ body {
 }
 
 hr.subtle {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 1.2em;
+  margin-bottom: 1.2em;
   width: 75%;
   border: none;
   height: 1px;
