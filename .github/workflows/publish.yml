@@ -5,32 +5,34 @@ on:
    branches: [main, develop]
 
 jobs:
- publish:
-   strategy:
-     matrix:
-       include:
-         - os: ubuntu-latest
-           args: --linux
-         - os: windows-latest
-           args: --win
-         - os: macos-latest
-           args: --mac
+  publish:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            args: --linux
+          - os: windows-latest
+            args: --win
+          - os: macos-latest
+            args: --mac
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
 
-   runs-on: ${{ matrix.os }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: |
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            npm install --no-save dmg-builder@latest --platform=linux
+          fi
+          npm install
+      - name: Build & Publish
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          npm run postinstall
+          npm run build
+          npm exec electron-builder -- --publish always ${{ matrix.args }}
 
-   steps:
-     - uses: actions/checkout@v2
-
-     - uses: actions/setup-node@v3
-       with:
-         node-version: 20
-
-     - run: npm install
-
-     - name: Build & Publish
-       env:
-         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-       run: |
-         npm run postinstall
-         npm run build
-         npm exec electron-builder -- --publish always ${{ matrix.args }}
